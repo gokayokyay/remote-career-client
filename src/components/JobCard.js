@@ -103,9 +103,11 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 600,
   },
   applyButton: {
-    marginRight: 12,
+    marginRight: 36,
     height: '40%',
     fontWeight: 'bold',
+    width: '13%',
+    maxWidth: 150,
   },
   bottomDivider: {
     position: 'absolute',

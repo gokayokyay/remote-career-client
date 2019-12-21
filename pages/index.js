@@ -2,19 +2,16 @@ import React from 'react';
 
 import Link from '../src/Link';
 import NavBar from '../src/components/NavBar';
-import Hero from '../src/components/Hero';
-import Showcase from '../src/components/ClientShowcase';
-import FilterSection from '../src/components/FilterSection';
-import JobListingSection from '../src/components/JobListingSection';
+import CreateJobSection from '../src/components/CreateJobSection';
+import Grid from '@material-ui/core/Grid';
 
 export default function Index() {
   return (
-    <div>
+    <Grid container>
       <NavBar />
-      <Hero />
-      <Showcase />
-      <FilterSection />
-      <JobListingSection date="Today" />
-    </div>
+      <Grid item xs={12} sm={12} md={7}>
+        <CreateJobSection />
+      </Grid>
+    </Grid>
   );
 }
