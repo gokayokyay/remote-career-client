@@ -1,4 +1,3 @@
-// /* eslint-disable prettier/prettier */
 import React from 'react';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -39,7 +38,7 @@ export default function CreateJobSection() {
         Please be specific and do not enter any sentence. Do not enter multiple
         positions.
       </Typography>
-      
+
       <Typography className={classes.inputTitles} variant="body1">
         Company Name*
       </Typography>
@@ -73,6 +72,40 @@ export default function CreateJobSection() {
         important for applicants.
       </Typography>
 
+      <Typography className={classes.inputTitles} variant="body1">
+        Job Description*
+      </Typography>
+      <InputBase
+        required
+        className={classes.inputs}
+        fullWidth
+        multiline
+        rows="4"
+      />
+
+      <Typography className={classes.inputTitles} variant="body1">
+        Responsibilities
+      </Typography>
+      <InputBase className={classes.inputs} fullWidth multiline rows="4" />
+
+      <Typography className={classes.inputTitles} variant="body1">
+        Requirements
+      </Typography>
+      <InputBase className={classes.inputs} fullWidth multiline rows="4" />
+
+      <Typography className={classes.inputTitles} variant="body1">
+        Nice to have
+      </Typography>
+      <InputBase className={classes.inputs} fullWidth multiline rows="4" />
+
+      <Typography className={classes.inputTitles} variant="body1">
+        Apply URL or Apply Email*
+      </Typography>
+      <InputBase required className={classes.inputs} fullWidth />
+      <Typography className={classes.inputCaptions} variant="caption">
+        You can supply the email or the url. Note that this email will be
+        public.
+      </Typography>
     </Container>
   );
 }
