@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -27,9 +28,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function NavBar() {
+export default function NavBar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const { position, className, rootStyle } = props;
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -40,7 +43,7 @@ export default function NavBar() {
   };
 
   return (
-    <AppBar color="primary" position="static">
+    <AppBar color="primary" position={position || 'static'} className={className} style={rootStyle}>
       <Toolbar>
         <h3>Remote Career</h3>
         <div className={classes.grow} />

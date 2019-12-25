@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     // borderBottom: '1px solid rgba(0,0,0,0.3)',
     position: 'relative',
+    backgroundColor: 'white',
   },
   logoContainer: {
     height: 96,
@@ -120,7 +121,7 @@ export default function JobCard(props) {
   const classes = useStyles();
   const { jobName, companyName, logoURI, tags = [] } = props;
   return (
-    <Grid item xs={12} className={classes.root}>
+    <Grid item xs={12} className={`${classes.root} ${props.className}`}>
       <Box className={classes.logoContainer}>
         <img
           src={logoURI}

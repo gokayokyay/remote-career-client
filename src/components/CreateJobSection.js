@@ -2,11 +2,15 @@ import React from 'react';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
+import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginTop: 16,
+    marginTop: theme.spacing(10),
+    marginBottom: theme.spacing(14),
+    backgroundColor: theme.palette.primary.main,
   },
   inputTitles: {
     fontWeight: 'bold',
@@ -22,6 +26,22 @@ const useStyles = makeStyles(theme => ({
   },
   inputCaptions: {
     marginTop: 8,
+  },
+  dividers: {
+    marginTop: 8,
+    marginBottom: 8,
+  },
+  buttonContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  confirmButton: {
+    fontWeight: 'bold',
+    marginTop: 32,
+    '@media (max-width:948px)': {
+      display: 'none',
+    },
   },
 }));
 
@@ -106,6 +126,21 @@ export default function CreateJobSection() {
         You can supply the email or the url. Note that this email will be
         public.
       </Typography>
+
+      <Divider variant="fullWidth" className={classes.dividers} />
+
+      <Typography className={classes.inputTitles} variant="body1">
+        Payments
+      </Typography>
+      <Typography className={classes.inputCaptions} variant="caption">
+        Payments are disabled at the moment.
+      </Typography>
+
+      <Container className={classes.buttonContainer}>
+        <Button color="secondary" variant="contained" className={classes.confirmButton}>
+          Confirm
+        </Button>
+      </Container>
     </Container>
   );
 }
