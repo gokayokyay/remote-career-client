@@ -43,6 +43,9 @@ const useStyles = makeStyles(theme => ({
       display: 'none',
     },
   },
+  uploadButton: {
+    fontWeight: 'bold',
+  },
 }));
 
 export default function CreateJobSection() {
@@ -64,6 +67,25 @@ export default function CreateJobSection() {
       </Typography>
       <InputBase required className={classes.inputs} fullWidth />
 
+      <Typography className={classes.inputTitles} variant="body1">
+        Company Logo*
+      </Typography>
+      <input
+        accept="image/*"
+        className={classes.input}
+        style={{ display: 'none' }}
+        id="button-file"
+        multiple
+        type="file"
+        onChange={(e) => {
+          console.log(URL.createObjectURL(e.target.files[0]));
+        }}
+      />
+      <label htmlFor="button-file">
+        <Button color="secondary" variant="contained" component="span" className={classes.uploadButton}>
+          Upload
+        </Button>
+      </label> 
       <Typography className={classes.inputTitles} variant="body1">
         Company Headquarters
       </Typography>

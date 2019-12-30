@@ -121,9 +121,13 @@ const useStyles = makeStyles(theme => ({
 export default function JobCard(props) {
   const classes = useStyles();
   const router = useRouter();
-  const { jobName, companyName, logoURI, tags = [] } = props;
+  const { jobName, companyName, logoURI, tags = [], preview } = props;
   return (
-    <Grid onClick={() => router.push('/jobs/[32]')} item xs={12} className={`${classes.root} ${props.className}`}>
+    <Grid onClick={() => {
+      if(!preview) {
+        router.push('/jobs/[id]');
+      }
+    }} item xs={12} className={`${classes.root} ${props.className}`}>
       <Box className={classes.logoContainer}>
         <img
           src={logoURI}
