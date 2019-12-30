@@ -7,6 +7,7 @@ import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
+import Router , {useRouter}  from 'next/router';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -119,9 +120,10 @@ const useStyles = makeStyles(theme => ({
 
 export default function JobCard(props) {
   const classes = useStyles();
+  const router = useRouter();
   const { jobName, companyName, logoURI, tags = [] } = props;
   return (
-    <Grid item xs={12} className={`${classes.root} ${props.className}`}>
+    <Grid onClick={() => router.push('/jobs/[32]')} item xs={12} className={`${classes.root} ${props.className}`}>
       <Box className={classes.logoContainer}>
         <img
           src={logoURI}

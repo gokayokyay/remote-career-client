@@ -1,35 +1,20 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import NavBar from '../src/components/NavBar';
-import JobPost from '../src/components/JobPost';
-import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
-  root: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#EDEDED',
-  },
-  bg: {
-    backgroundImage: 'url(./nature-1.jpg)',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    position: 'absolute',
-    height: '60%',
-    width: '100%',
-    zIndex: 0,
-    boxShadow: '0px 0px 24px rgb(0, 0, 0)',
-  },
-});
+import Link from '../src/Link';
+import NavBar from '../src/components/NavBar';
+import Hero from '../src/components/Hero';
+import Showcase from '../src/components/ClientShowcase';
+import FilterSection from '../src/components/FilterSection';
+import JobListingSection from '../src/components/JobListingSection';
 
 export default function Index() {
-  const classes = useStyles();
   return (
-    <Grid className={classes.root} container>
+    <div>
       <NavBar />
-      <JobPost />
-      <div className={classes.bg} />
-    </Grid>
+      <Hero />
+      <Showcase />
+      <FilterSection />
+      <JobListingSection date="Today" />
+    </div>
   );
 }

@@ -7,6 +7,8 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
+import Link from '../Link';
+
 const useStyles = makeStyles(theme => ({
   grow: {
     flexGrow: 1,
@@ -54,13 +56,15 @@ export default function NavBar(props) {
           <Button color="secondary" className={classes.buttons}>
             Proofs
           </Button>
-          <Button
-            color="secondary"
-            className={classes.buttons}
-            variant="contained"
-          >
-            Post a Job
-          </Button>
+          <Link href="/postjob">
+            <Button
+              color="secondary"
+              className={classes.buttons}
+              variant="contained"
+            >
+              Post a Job
+            </Button>
+          </Link>
         </div>
         <div className={classes.sectionMobile}>
           <Button onClick={handleClick}>Menu</Button>

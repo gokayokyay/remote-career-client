@@ -77,7 +77,7 @@ export default function JobPost() {
   return (
     <Box className={classes.root}>
       <Box className={classes.logoContainer}>
-        <img src="./wwf.png" className={classes.logo} alt={`${''} Logo`} />
+        <img src="../wwf.png" className={classes.logo} alt={`${''} Logo`} />
       </Box>
       <Typography variant="h4" className={classes.bigTitle}>
         Company Name
