@@ -28,6 +28,12 @@ const useStyles = makeStyles(theme => ({
   buttons: {
     marginLeft: 8,
   },
+  logoContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    maxWidth: theme.spacing(18),
+  },
 }));
 
 export default function NavBar(props) {
@@ -45,9 +51,18 @@ export default function NavBar(props) {
   };
 
   return (
-    <AppBar color="primary" position={position || 'static'} className={className} style={rootStyle}>
+    <AppBar
+      color="primary"
+      position={position || 'static'}
+      className={className}
+      style={rootStyle}
+    >
       <Toolbar>
-        <h3>Remote Career</h3>
+        <Link href="/">
+          <div className={classes.logoContainer}>
+            <img src="./logo.png" alt="Logo" />
+          </div>
+        </Link>
         <div className={classes.grow} />
         <div className={classes.sectionDesktop}>
           <Button color="secondary" className={classes.buttons}>

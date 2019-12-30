@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -61,12 +62,10 @@ export default function CreateJobSection() {
         Please be specific and do not enter any sentence. Do not enter multiple
         positions.
       </Typography>
-
       <Typography className={classes.inputTitles} variant="body1">
         Company Name*
       </Typography>
       <InputBase required className={classes.inputs} fullWidth />
-
       <Typography className={classes.inputTitles} variant="body1">
         Company Logo*
       </Typography>
@@ -77,20 +76,24 @@ export default function CreateJobSection() {
         id="button-file"
         multiple
         type="file"
-        onChange={(e) => {
+        onChange={e => {
           console.log(URL.createObjectURL(e.target.files[0]));
         }}
       />
       <label htmlFor="button-file">
-        <Button color="secondary" variant="contained" component="span" className={classes.uploadButton}>
+        <Button
+          color="secondary"
+          variant="contained"
+          component="span"
+          className={classes.uploadButton}
+        >
           Upload
         </Button>
-      </label> 
+      </label>
       <Typography className={classes.inputTitles} variant="body1">
         Company Headquarters
       </Typography>
       <InputBase className={classes.inputs} fullWidth />
-
       <Typography className={classes.inputTitles} variant="body1">
         Location Restriction
       </Typography>
@@ -104,7 +107,6 @@ export default function CreateJobSection() {
         Fill this space if this job has a location restriction, like EU Only, US
         Only. If not leave it unchanged.
       </Typography>
-
       <Typography className={classes.inputTitles} variant="body1">
         Tags*
       </Typography>
@@ -113,7 +115,6 @@ export default function CreateJobSection() {
         Comma seperated tags. Please keep in mind that these tags are very
         important for applicants.
       </Typography>
-
       <Typography className={classes.inputTitles} variant="body1">
         Job Description*
       </Typography>
@@ -124,22 +125,18 @@ export default function CreateJobSection() {
         multiline
         rows="4"
       />
-
       <Typography className={classes.inputTitles} variant="body1">
         Responsibilities
       </Typography>
       <InputBase className={classes.inputs} fullWidth multiline rows="4" />
-
       <Typography className={classes.inputTitles} variant="body1">
         Requirements
       </Typography>
       <InputBase className={classes.inputs} fullWidth multiline rows="4" />
-
       <Typography className={classes.inputTitles} variant="body1">
         Nice to have
       </Typography>
       <InputBase className={classes.inputs} fullWidth multiline rows="4" />
-
       <Typography className={classes.inputTitles} variant="body1">
         Apply URL or Apply Email*
       </Typography>
@@ -148,18 +145,19 @@ export default function CreateJobSection() {
         You can supply the email or the url. Note that this email will be
         public.
       </Typography>
-
       <Divider variant="fullWidth" className={classes.dividers} />
-
       <Typography className={classes.inputTitles} variant="body1">
         Payments
       </Typography>
       <Typography className={classes.inputCaptions} variant="caption">
         Payments are disabled at the moment.
       </Typography>
-
       <Container className={classes.buttonContainer}>
-        <Button color="secondary" variant="contained" className={classes.confirmButton}>
+        <Button
+          color="secondary"
+          variant="contained"
+          className={classes.confirmButton}
+        >
           Confirm
         </Button>
       </Container>

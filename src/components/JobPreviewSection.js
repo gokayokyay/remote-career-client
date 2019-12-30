@@ -46,7 +46,13 @@ export default function JobPreviewSection() {
   return (
     <Box className={classes.root}>
       <img src="./nature-1.jpg" className={classes.bg} alt="Nature" />
-      <JobCard preview jobName="Position" companyName="Company Name" tags={['Tag 1', 'Tag 2']} className={classes.jobCard} />
+      <JobCard
+        preview
+        jobName="Position"
+        companyName="Company Name"
+        tags={['Tag 1', 'Tag 2']}
+        className={classes.jobCard}
+      />
     </Box>
   );
 }

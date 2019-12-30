@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
@@ -7,7 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
-import Router , {useRouter}  from 'next/router';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -123,11 +124,16 @@ export default function JobCard(props) {
   const router = useRouter();
   const { jobName, companyName, logoURI, tags = [], preview } = props;
   return (
-    <Grid onClick={() => {
-      if(!preview) {
-        router.push('/jobs/[id]');
-      }
-    }} item xs={12} className={`${classes.root} ${props.className}`}>
+    <Grid
+      onClick={() => {
+        if (!preview) {
+          router.push('/jobs/[id]');
+        }
+      }}
+      item
+      xs={12}
+      className={`${classes.root} ${props.className}`}
+    >
       <Box className={classes.logoContainer}>
         <img
           src={logoURI}
