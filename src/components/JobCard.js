@@ -94,6 +94,16 @@ const useStyles = makeStyles(theme => ({
     marginRight: 4,
     height: '100%',
   },
+  restrictionContainer: {
+    border: `1px solid #bb0000`,
+    borderRadius: '5px',
+    display: 'flex',
+    alignItems: 'center',
+    backgroundColor: '#bb0000',
+    padding: 2,
+    marginRight: 4,
+    height: '100%',
+  },
   tagName: {
     fontSize: '0.6rem',
     '@media (min-width:600px)': {
@@ -122,7 +132,28 @@ const useStyles = makeStyles(theme => ({
 export default function JobCard(props) {
   const classes = useStyles();
   const router = useRouter();
-  const { jobName, companyName, logoURI, tags = [], preview } = props;
+  const {
+    jobName,
+    companyName,
+    logoURI,
+    tags = [],
+    preview,
+    locationRestriction = null,
+  } = props;
+
+  // eslint-disable-next-line consistent-return
+  const hasLocationRestriction = () => {
+    if (locationRestriction) {
+      return (
+        <Box className={classes.restrictionContainer}>
+          <Typography className={classes.tagName} variant="caption">
+            {locationRestriction}
+          </Typography>
+        </Box>
+      );
+    }
+  };
+
   return (
     <Grid
       onClick={() => {
@@ -146,6 +177,7 @@ export default function JobCard(props) {
         <Typography className={classes.jobName}>{jobName}</Typography>
         <Typography className={classes.companyName}>{companyName}</Typography>
         <Box className={classes.tagSection}>
+          {hasLocationRestriction(locationRestriction)}
           {tags.map(element => (
             <Box key={element} className={classes.tagContainer}>
               <Typography className={classes.tagName} variant="caption">

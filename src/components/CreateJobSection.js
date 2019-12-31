@@ -7,6 +7,16 @@ import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
+import { useDispatch, useStore, useSelector } from 'react-redux';
+
+import {
+  previewChangedPosition,
+  previewChangedCompanyName,
+  previewChangedLogo,
+  previewChangedLocationRestriction,
+  previewChangedTags,
+} from '../redux/actions';
+
 const useStyles = makeStyles(theme => ({
   root: {
     marginTop: theme.spacing(10),
@@ -51,12 +61,21 @@ const useStyles = makeStyles(theme => ({
 
 export default function CreateJobSection() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const state = useSelector(state => state.previewJob);
   return (
     <Container className={classes.root}>
       <Typography className={classes.inputTitles} variant="body1">
         Position*
       </Typography>
-      <InputBase required className={classes.inputs} fullWidth />
+      <InputBase
+        onChange={e => {
+          dispatch(previewChangedPosition(e.target.value));
+        }}
+        required
+        className={classes.inputs}
+        fullWidth
+      />
       <Typography className={classes.inputCaptions} variant="caption">
         Only enter the position, like “Software Architect” or “Product Manager”.
         Please be specific and do not enter any sentence. Do not enter multiple
@@ -65,7 +84,14 @@ export default function CreateJobSection() {
       <Typography className={classes.inputTitles} variant="body1">
         Company Name*
       </Typography>
-      <InputBase required className={classes.inputs} fullWidth />
+      <InputBase
+        onChange={e => {
+          dispatch(previewChangedCompanyName(e.target.value));
+        }}
+        required
+        className={classes.inputs}
+        fullWidth
+      />
       <Typography className={classes.inputTitles} variant="body1">
         Company Logo*
       </Typography>
@@ -77,7 +103,8 @@ export default function CreateJobSection() {
         multiple
         type="file"
         onChange={e => {
-          console.log(URL.createObjectURL(e.target.files[0]));
+          // dispatch(previewChangedLogo(URL.createObjectURL(.target.files[0])))
+          dispatch(previewChangedLogo(e.target.files[0]));
         }}
       />
       <label htmlFor="button-file">
@@ -102,6 +129,9 @@ export default function CreateJobSection() {
         required
         className={classes.inputs}
         fullWidth
+        onChange={e => {
+          dispatch(previewChangedLocationRestriction(e.target.value));
+        }}
       />
       <Typography className={classes.inputCaptions} variant="caption">
         Fill this space if this job has a location restriction, like EU Only, US
@@ -110,7 +140,15 @@ export default function CreateJobSection() {
       <Typography className={classes.inputTitles} variant="body1">
         Tags*
       </Typography>
-      <InputBase required className={classes.inputs} fullWidth />
+      <InputBase
+        required
+        className={classes.inputs}
+        fullWidth
+        onChange={e => {
+          const tags = e.target.value.split(',');
+          dispatch(previewChangedTags(tags));
+        }}
+      />
       <Typography className={classes.inputCaptions} variant="caption">
         Comma seperated tags. Please keep in mind that these tags are very
         important for applicants.

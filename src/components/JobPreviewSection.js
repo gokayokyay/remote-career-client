@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
+import { useSelector } from 'react-redux';
 import JobCard from './JobCard';
 
 const useStyles = makeStyles({
@@ -10,7 +11,7 @@ const useStyles = makeStyles({
     alignItems: 'center',
     justifyContent: 'center',
     height: '100vh',
-    width: '41.666667%',
+    width: '50%',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -43,15 +44,22 @@ const useStyles = makeStyles({
 
 export default function JobPreviewSection() {
   const classes = useStyles();
+  const state = useSelector(store => store.previewJob);
   return (
     <Box className={classes.root}>
       <img src="./nature-1.jpg" className={classes.bg} alt="Nature" />
       <JobCard
         preview
-        jobName="Position"
-        companyName="Company Name"
-        tags={['Tag 1', 'Tag 2']}
+        jobName={state.position || 'Position'}
+        companyName={state.companyName || 'Company'}
+        tags={state.tags || ['Tag 1', 'Tag 2']}
         className={classes.jobCard}
+        logoURI={state.logoURL}
+        locationRestriction={
+          state.locationRestriction !== 'Worldwide'
+            ? state.locationRestriction
+            : null
+        }
       />
     </Box>
   );

@@ -1,9 +1,12 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import App from 'next/app';
 import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { Provider } from 'react-redux';
 import theme from '../src/theme';
+import store from '../src/redux/store';
 
 export default class MyApp extends App {
   componentDidMount() {
@@ -18,17 +21,19 @@ export default class MyApp extends App {
     const { Component, pageProps } = this.props;
 
     return (
-      <React.Fragment>
+      <Provider store={store}>
         <Head>
           <title>My page</title>
-          <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet" />
+          <link
+            href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap"
+            rel="stylesheet"
+          />
         </Head>
         <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
           <Component {...pageProps} />
         </ThemeProvider>
-      </React.Fragment>
+      </Provider>
     );
   }
 }

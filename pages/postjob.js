@@ -35,10 +35,10 @@ export default function Index() {
   return (
     <Grid container>
       <NavBar position="fixed" />
-      <Grid item xs={12} sm={12} md={7}>
+      <Grid item xs={12} sm={12} md={6}>
         <CreateJobSection />
       </Grid>
-      <Grid item xs={12} sm={12} md={5}>
+      <Grid item xs={12} sm={12} md={6}>
         <JobPreviewSection />
       </Grid>
       <Box className={classes.confirmContainer}>
