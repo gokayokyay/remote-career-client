@@ -60,7 +60,7 @@ export default function NavBar(props) {
       <Toolbar>
         <Link href="/">
           <div className={classes.logoContainer}>
-            <img src="./logo.png" alt="Logo" />
+            <img src="/logo.png" alt="Logo" />
           </div>
         </Link>
         <div className={classes.grow} />

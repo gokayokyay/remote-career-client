@@ -15,6 +15,13 @@ import {
   previewChangedLogo,
   previewChangedLocationRestriction,
   previewChangedTags,
+  previewChangedDescription,
+  previewChangedResponsibilities,
+  previewChangedRequirements,
+  previewChangedNiceToHave,
+  previewChangedApplyEmail,
+  previewChangedApplyURL,
+  previewApplyError,
 } from '../redux/actions';
 
 const useStyles = makeStyles(theme => ({
@@ -37,6 +44,11 @@ const useStyles = makeStyles(theme => ({
   },
   inputCaptions: {
     marginTop: 8,
+  },
+  errorCaptions: {
+    color: 'red',
+    marginTop: 8,
+    display: 'inline-block',
   },
   dividers: {
     marginTop: 8,
@@ -162,23 +174,55 @@ export default function CreateJobSection() {
         fullWidth
         multiline
         rows="4"
+        onChange={e => dispatch(previewChangedDescription(e.target.value))}
       />
       <Typography className={classes.inputTitles} variant="body1">
         Responsibilities
       </Typography>
-      <InputBase className={classes.inputs} fullWidth multiline rows="4" />
+      <InputBase
+        className={classes.inputs}
+        fullWidth
+        multiline
+        rows="4"
+        onChange={e => dispatch(previewChangedResponsibilities(e.target.value))}
+      />
       <Typography className={classes.inputTitles} variant="body1">
         Requirements
       </Typography>
-      <InputBase className={classes.inputs} fullWidth multiline rows="4" />
+      <InputBase
+        className={classes.inputs}
+        fullWidth
+        multiline
+        rows="4"
+        onChange={e => dispatch(previewChangedRequirements(e.target.value))}
+      />
       <Typography className={classes.inputTitles} variant="body1">
         Nice to have
       </Typography>
-      <InputBase className={classes.inputs} fullWidth multiline rows="4" />
+      <InputBase
+        className={classes.inputs}
+        fullWidth
+        multiline
+        rows="4"
+        onChange={e => dispatch(previewChangedNiceToHave(e.target.value))}
+      />
       <Typography className={classes.inputTitles} variant="body1">
         Apply URL or Apply Email*
       </Typography>
-      <InputBase required className={classes.inputs} fullWidth />
+      <InputBase
+        onChange={e => {
+          if (e.target.value.includes('@')) {
+            dispatch(previewChangedApplyEmail(e.target.value));
+          } else if (e.target.value.includes('http')) {
+            dispatch(previewChangedApplyURL(e.target.value));
+          } else {
+            dispatch(previewApplyError());
+          }
+        }}
+        required
+        className={classes.inputs}
+        fullWidth
+      />
       <Typography className={classes.inputCaptions} variant="caption">
         You can supply the email or the url. Note that this email will be
         public.
