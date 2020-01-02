@@ -34,6 +34,10 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     maxWidth: theme.spacing(18),
   },
+  logo: {
+    height: '100%',
+    width: '100%',
+  },
 }));
 
 export default function NavBar(props) {
@@ -60,7 +64,7 @@ export default function NavBar(props) {
       <Toolbar>
         <Link href="/">
           <div className={classes.logoContainer}>
-            <img src="/logo.png" alt="Logo" />
+            <img className={classes.logo} src="/logo.png" alt="Logo" />
           </div>
         </Link>
         <div className={classes.grow} />
