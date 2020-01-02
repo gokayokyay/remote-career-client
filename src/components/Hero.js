@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
+import Link from '../Link';
+
 const useStyles = makeStyles({
   root: {
     height: '40vh',
@@ -71,13 +73,15 @@ export default function Hero() {
             90% of every purchase goes to a charity!
           </Typography>
           <div className={classes.buttonArea}>
-            <Button
-              color="secondary"
-              variant="contained"
-              className={classes.postJobButton}
-            >
-              Post a Job - 50$
-            </Button>
+            <Link href="/postjob">
+              <Button
+                color="secondary"
+                variant="contained"
+                className={classes.postJobButton}
+              >
+                Post a Job - 50$
+              </Button>
+            </Link>
             <Typography variant="caption" className={classes.jobCount}>
               <b>22</b> jobs and still counting!
             </Typography>
