@@ -6,6 +6,7 @@
     "@material-ui/core": "latest",
     "@material-ui/icons": "^4.5.1",
     "clsx": "latest",
+    "isomorphic-unfetch": "^3.0.0",
     "next": "latest",
     "prop-types": "latest",
     "react": "latest",
