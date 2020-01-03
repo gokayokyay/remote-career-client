@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-unfetch';
+// import fetch from 'isomorphic-unfetch';
 import { API_ENDPOINT } from '../config';
 
 export const PREVIEW_CHANGED_LOGO = 'PREVIEW_CHANGED_LOGO';
@@ -9,7 +9,8 @@ export const PREVIEW_CHANGED_LOCATION_RESTRICTION =
   'PREVIEW_CHANGED_LOCATION_RESTRICTION';
 export const PREVIEW_CHANGED_TAGS = 'PREVIEW_CHANGED_TAGS';
 export const PREVIEW_CHANGED_DESCRIPTION = 'PREVIEW_CHANGED_DESCRIPTION';
-export const PREVIEW_CHANGED_RESPONSIBILITIES = 'PREVIEW_CHANGED_RESPONSIBILITIES';
+export const PREVIEW_CHANGED_RESPONSIBILITIES =
+  'PREVIEW_CHANGED_RESPONSIBILITIES';
 export const PREVIEW_CHANGED_REQUIREMENTS = 'PREVIEW_CHANGED_REQUIREMENTS';
 export const PREVIEW_CHANGED_NICE_TO_HAVE = 'PREVIEW_CHANGED_NICE_TO_HAVE';
 export const PREVIEW_CHANGED_APPLY_EMAIL = 'PREVIEW_CHANGED_APPLY_EMAIL';
@@ -20,7 +21,9 @@ export const POST_JOB_BEGIN = 'POST_JOB_BEGIN';
 export const POST_JOB_SUCCESS = 'POST_JOB_SUCCESS';
 export const POST_JOB_FAILURE = 'POST_JOB_FAILURE';
 
-
+export const GET_JOBS_BEGIN = 'GET_JOBS_BEGIN';
+export const GET_JOBS_SUCCESS = 'GET_JOBS_SUCCESS';
+export const GET_JOBS_FAILURE = 'GET_JOBS_FAILURE';
 
 export const previewChangedLogo = logo => ({
   type: PREVIEW_CHANGED_LOGO,
@@ -102,14 +105,51 @@ export const postJobFailure = error => ({
 export function postJob(job) {
   return dispatch => {
     dispatch(postJobBegin());
-    return fetch(API_ENDPOINT + '/jobs', { 
-      method: 'post', 
+    return fetch(`${API_ENDPOINT}/jobs`, {
+      method: 'POST',
       headers: {
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(job),
     })
       .then(res => res.json())
-      .then(console.log);
-  }
+      .then(res => {
+        dispatch(postJobSuccess());
+      })
+      .catch(err => {
+        dispatch(postJobFailure(err));
+        console.log(err);
+      });
+  };
+}
+
+export const getJobsBegin = jobs => ({
+  type: GET_JOBS_BEGIN,
+  payload: jobs,
+});
+
+export const getJobsSuccess = () => ({
+  type: GET_JOBS_SUCCESS,
+});
+
+export const getJobsFailure = error => ({
+  type: GET_JOBS_FAILURE,
+  payload: error,
+});
+
+export function getJobs() {
+  return dispatch => {
+    dispatch(getJobsBegin());
+    return fetch(`${API_ENDPOINT}/jobs`)
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        dispatch(postJobSuccess(res));
+      })
+      .catch(err => {
+        dispatch(postJobFailure(err));
+        console.log(err);
+      });
+  };
 }

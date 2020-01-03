@@ -139,6 +139,7 @@ export default function JobCard(props) {
     tags = [],
     preview,
     locationRestriction = null,
+    _id,
   } = props;
 
   // eslint-disable-next-line consistent-return
@@ -158,7 +159,7 @@ export default function JobCard(props) {
     <Grid
       onClick={() => {
         if (!preview) {
-          router.push('/jobs/[id]');
+          router.push('/jobs/[id]', `jobs/${_id}`);
         }
       }}
       item
