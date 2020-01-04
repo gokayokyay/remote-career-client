@@ -159,7 +159,7 @@ export default function JobCard(props) {
     <Grid
       onClick={() => {
         if (!preview) {
-          router.push('/jobs/[id]', `jobs/${_id}`);
+          router.push('/jobs/[id]', `/jobs/${_id}`);
         }
       }}
       item

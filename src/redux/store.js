@@ -2,12 +2,14 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
 import { previewJob } from './previewReducers';
-import { postJobReducers } from './postJobReducers';
+import { postJob } from './postJobReducers';
+import { getJobs } from './getJobsReducers';
 
 export default createStore(
   combineReducers({
     previewJob,
-    postJobReducers,
+    postJob,
+    getJobs,
   }),
   applyMiddleware(thunk),
 );

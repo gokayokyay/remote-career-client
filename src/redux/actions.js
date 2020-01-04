@@ -1,4 +1,5 @@
 // import fetch from 'isomorphic-unfetch';
+import fetch from 'isomorphic-unfetch';
 import { API_ENDPOINT } from '../config';
 
 export const PREVIEW_CHANGED_LOGO = 'PREVIEW_CHANGED_LOGO';
@@ -129,8 +130,9 @@ export const getJobsBegin = jobs => ({
   payload: jobs,
 });
 
-export const getJobsSuccess = () => ({
+export const getJobsSuccess = jobs => ({
   type: GET_JOBS_SUCCESS,
+  payload: jobs,
 });
 
 export const getJobsFailure = error => ({
@@ -144,12 +146,10 @@ export function getJobs() {
     return fetch(`${API_ENDPOINT}/jobs`)
       .then(res => res.json())
       .then(res => {
-        console.log(res);
-        dispatch(postJobSuccess(res));
+        dispatch(getJobsSuccess(res));
       })
       .catch(err => {
-        dispatch(postJobFailure(err));
-        console.log(err);
+        dispatch(getJobsFailure(err));
       });
   };
 }
