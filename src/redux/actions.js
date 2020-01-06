@@ -146,7 +146,33 @@ export function getJobs() {
     return fetch(`${API_ENDPOINT}/jobs`)
       .then(res => res.json())
       .then(res => {
-        dispatch(getJobsSuccess(res));
+        let today = new Date().getTime() - (1 * 24 * 60 * 60 * 1000);
+        let weekAgo = new Date().getTime() - (7 * 24 * 60 * 60 * 1000);
+        let monthAgo = new Date().getTime() - (30 * 24 * 60 * 60 * 1000);
+        
+        let todayJobs = [];
+        let pastWeekJobs = [];
+        let pastMonthJobs = [];
+        let olderJobs = [];
+  
+        res.forEach(job => {
+          let createdAt = new Date(job.createdAt).getTime();
+          if(createdAt > today) {
+            todayJobs.push(job);
+          } else if (createdAt > weekAgo) {
+            pastWeekJobs.push(job);
+          } else if (createdAt > monthAgo) {
+            pastMonthJobs.push(job);
+          } else {
+            olderJobs.push(job);
+          }
+        });
+        dispatch(getJobsSuccess({
+          today: todayJobs,
+          pastWeek: pastWeekJobs,
+          pastMonth: pastMonthJobs,
+          older: olderJobs,
+        }));
       })
       .catch(err => {
         dispatch(getJobsFailure(err));

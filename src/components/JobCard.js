@@ -116,10 +116,10 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 600,
   },
   applyButton: {
-    marginRight: 36,
+    marginRight: 24,
     height: '40%',
     fontWeight: 'bold',
-    width: '13%',
+    width: '15%',
     maxWidth: 150,
   },
   bottomDivider: {
@@ -127,6 +127,10 @@ const useStyles = makeStyles(theme => ({
     bottom: 0,
     width: '100%',
   },
+  lifetime: {
+    marginRight: 12,
+    fontWeight: 'bold',
+  }
 }));
 
 export default function JobCard(props) {
@@ -197,6 +201,11 @@ export default function JobCard(props) {
           Apply
         </Button>
       </Hidden>
+      <Box>
+        <Typography className={classes.lifetime}>
+          12h
+        </Typography>
+      </Box>
       <Divider className={classes.bottomDivider} variant="fullWidth" />
     </Grid>
   );

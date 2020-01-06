@@ -19,39 +19,43 @@ function Index() {
     dispatch(getJobs());
   }, []);
   const state = useSelector(state => state.getJobs);
-  function returnJobListingSections() {
-    if (!state.hasOwnProperty('jobs')) {
-      return;
-    } else {
-      console.log(state);
-      let weekAgo = new Date();
-      let monthAgo = new Date();
-      let today = new Date();
-      weekAgo.setDate(weekAgo.getDate() - 7);
-      monthAgo.setDate(monthAgo.getDate() - 30);
-      
-      const todayJobs = [];
-      const pastWeekJobs = [];
-      const pastMonthJobs = [];
-      const olderJobs = [];
-
-      state.jobs.forEach(job => {
-        let createdAt = new Date(job.createdAt);
-        console.log(createdAt);
-        console.log(today);
-        if (createdAt.setHours(0,0,0,0) == today.setHours(0,0,0,0)) {
-          console.log("yas");
-        }
-      });
+  const {
+    olderJobs,
+    pastMonthJobs,
+    pastWeekJobs,
+    todayJobs,
+  } = state;
+  const returnToday = () => {
+    if(todayJobs && todayJobs.length) {
+      return <JobListingSection date="Today" jobs={todayJobs} />;
     }
   }
+  const returnPastWeek = () => {
+    if(pastWeekJobs && pastWeekJobs.length) {
+      return <JobListingSection date="Past Week" jobs={pastWeekJobs} />;
+    }
+  }
+  const returnPastMonth = () => {
+    if(pastMonthJobs && pastMonthJobs.length) {
+      return <JobListingSection date="Past Month" jobs={pastMonthJobs} />;
+    }
+  }
+  const returnOlder = () => {
+    if(olderJobs && olderJobs.length) {
+      return <JobListingSection date="Older than one month" jobs={olderJobs} />;
+    }
+  }
+  console.log(state);
   return (
     <div>
       <NavBar />
       <Hero />
       <Showcase />
       <FilterSection />
-      {returnJobListingSections()}
+      {returnToday()}
+      {returnPastWeek()}
+      {returnPastMonth()}
+      {returnOlder()}
       <JobListingSection date="Today" jobs={[]} />
     </div>
   );
