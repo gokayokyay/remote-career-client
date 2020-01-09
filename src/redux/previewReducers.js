@@ -1,6 +1,8 @@
 /* eslint-disable import/prefer-default-export */
 import {
-  PREVIEW_CHANGED_LOGO,
+  PREVIEW_CHANGED_LOGO_FAILURE,
+  PREVIEW_CHANGED_LOGO_SUCCESS,
+  PREVIEW_CHANGED_LOGO_BEGIN,
   PREVIEW_CHANGED_POSITION,
   PREVIEW_CHANGED_COMPANY_NAME,
   PREVIEW_CHANGED_COMPANY_HQ,
@@ -17,12 +19,12 @@ import {
 
 export const previewJob = (state = {}, action) => {
   switch (action.type) {
-    case PREVIEW_CHANGED_LOGO:
-      return {
-        ...state,
-        logo: action.payload,
-        logoURL: URL.createObjectURL(action.payload),
-      };
+    case PREVIEW_CHANGED_LOGO_BEGIN:
+      return { ...state, logoLoading: true };
+    case PREVIEW_CHANGED_LOGO_SUCCESS:
+      return { ...state, logoLoading: false, logoURL: action.payload };
+    case PREVIEW_CHANGED_LOGO_FAILURE:
+      return { ...state, logoLoading: false, logoError: action.payload };
     case PREVIEW_CHANGED_POSITION:
       return { ...state, position: action.payload };
     case PREVIEW_CHANGED_COMPANY_NAME:

@@ -19,32 +19,27 @@ function Index() {
     dispatch(getJobs());
   }, []);
   const state = useSelector(state => state.getJobs);
-  const {
-    olderJobs,
-    pastMonthJobs,
-    pastWeekJobs,
-    todayJobs,
-  } = state;
+  const { olderJobs, pastMonthJobs, pastWeekJobs, todayJobs } = state;
   const returnToday = () => {
-    if(todayJobs && todayJobs.length) {
+    if (todayJobs && todayJobs.length) {
       return <JobListingSection date="Today" jobs={todayJobs} />;
     }
-  }
+  };
   const returnPastWeek = () => {
-    if(pastWeekJobs && pastWeekJobs.length) {
+    if (pastWeekJobs && pastWeekJobs.length) {
       return <JobListingSection date="Past Week" jobs={pastWeekJobs} />;
     }
-  }
+  };
   const returnPastMonth = () => {
-    if(pastMonthJobs && pastMonthJobs.length) {
+    if (pastMonthJobs && pastMonthJobs.length) {
       return <JobListingSection date="Past Month" jobs={pastMonthJobs} />;
     }
-  }
+  };
   const returnOlder = () => {
-    if(olderJobs && olderJobs.length) {
+    if (olderJobs && olderJobs.length) {
       return <JobListingSection date="Older than one month" jobs={olderJobs} />;
     }
-  }
+  };
   console.log(state);
   return (
     <div>
@@ -56,7 +51,7 @@ function Index() {
       {returnPastWeek()}
       {returnPastMonth()}
       {returnOlder()}
-      <JobListingSection date="Today" jobs={[]} />
+      {/* <JobListingSection date="Today" jobs={[]} /> */}
     </div>
   );
 }

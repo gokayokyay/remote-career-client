@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
@@ -32,31 +33,31 @@ const useStyles = makeStyles(theme => ({
 
 export default function JobListingSection(props) {
   const classes = useStyles();
-  const { date } = props;
+  const { date, jobs } = props;
+  console.log(jobs);
   return (
     <Grid container className={classes.root}>
       <Typography variant="h5" className={classes.dateText}>
         {date}
       </Typography>
       <Grid container className={classes.listSection}>
-        <JobCard
+        {/* <JobCard
           tags={['EU Only', 'Node.js']}
           jobName="Software Architect"
           logoURI="./awf.png"
           companyName="IFAW"
           jobDescription="Aasbsabasb asdashd aslkdjlaksjd alksjdlaskdjls lahdjasnkmvlkamfkam jafdjasıj ıajdı ıajsdıaskldngvlks"
-        />
-        <JobCard
-          tags={['Python', 'Flask', 'API']}
-          jobName="Senior Backend Engineer"
-          logoURI="./wwf.png"
-          companyName="IFAW"
-          jobDescription="Aasbsabasb asdashd aslkdjlaksjd alksjdlaskdjls lahdjasnkmvlkamfkam jafdjasıj ıajdı ıajsdıaskldngvlks"
-        />
-        {/* <JobCard jobName="Software Architect" companyName="IFAW" />
-        <JobCard jobName="Software Architect" companyName="IFAW" />
-        <JobCard jobName="Software Architect" companyName="IFAW" />
-        <JobCard jobName="Software Architect" companyName="IFAW" /> */}
+        /> */}
+        {jobs.map(job => (
+          <JobCard
+            tags={job.tags}
+            jobName={job.position}
+            companyName={job.companyName}
+            locationRestriction={job.locationRestriction}
+            _id={job._id}
+            key={job._id}
+          />
+        ))}
       </Grid>
     </Grid>
   );

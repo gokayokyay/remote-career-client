@@ -22,6 +22,8 @@ import {
   previewChangedApplyEmail,
   previewChangedApplyURL,
   previewApplyError,
+  previewChangedCompanyHQ,
+  postJob,
 } from '../redux/actions';
 
 const useStyles = makeStyles(theme => ({
@@ -75,6 +77,7 @@ export default function CreateJobSection() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const state = useSelector(state => state.previewJob);
+  // console.log(state);
   return (
     <Container className={classes.root}>
       <Typography className={classes.inputTitles} variant="body1">
@@ -114,8 +117,7 @@ export default function CreateJobSection() {
         id="button-file"
         multiple
         type="file"
-        onChange={e => {
-          // dispatch(previewChangedLogo(URL.createObjectURL(.target.files[0])))
+        onChange={async e => {
           dispatch(previewChangedLogo(e.target.files[0]));
         }}
       />
@@ -132,7 +134,13 @@ export default function CreateJobSection() {
       <Typography className={classes.inputTitles} variant="body1">
         Company Headquarters
       </Typography>
-      <InputBase className={classes.inputs} fullWidth />
+      <InputBase
+        onChange={e => {
+          dispatch(previewChangedCompanyHQ(e.target.value));
+        }}
+        className={classes.inputs}
+        fullWidth
+      />
       <Typography className={classes.inputTitles} variant="body1">
         Location Restriction
       </Typography>
@@ -239,6 +247,9 @@ export default function CreateJobSection() {
           color="secondary"
           variant="contained"
           className={classes.confirmButton}
+          onClick={() => {
+            dispatch(postJob(state));
+          }}
         >
           Confirm
         </Button>

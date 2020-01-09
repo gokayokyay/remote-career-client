@@ -3,6 +3,10 @@ import fetch from 'isomorphic-unfetch';
 import { API_ENDPOINT } from '../config';
 
 export const PREVIEW_CHANGED_LOGO = 'PREVIEW_CHANGED_LOGO';
+export const PREVIEW_CHANGED_LOGO_BEGIN = 'PREVIEW_CHANGED_LOGO_BEGIN';
+export const PREVIEW_CHANGED_LOGO_SUCCESS = 'PREVIEW_CHANGED_LOGO_SUCCESS';
+export const PREVIEW_CHANGED_LOGO_FAILURE = 'PREVIEW_CHANGED_LOGO_FAILURE';
+
 export const PREVIEW_CHANGED_POSITION = 'PREVIEW_CHANGED_POSITION';
 export const PREVIEW_CHANGED_COMPANY_NAME = 'PREVIEW_CHANGED_COMPANY_NAME';
 export const PREVIEW_CHANGED_COMPANY_HQ = 'PREVIEW_CHANGED_COMPANY_HQ';
@@ -26,10 +30,34 @@ export const GET_JOBS_BEGIN = 'GET_JOBS_BEGIN';
 export const GET_JOBS_SUCCESS = 'GET_JOBS_SUCCESS';
 export const GET_JOBS_FAILURE = 'GET_JOBS_FAILURE';
 
-export const previewChangedLogo = logo => ({
-  type: PREVIEW_CHANGED_LOGO,
-  payload: logo,
+export const previewChangedLogoBegin = () => ({
+  type: PREVIEW_CHANGED_LOGO_BEGIN,
 });
+
+export const previewChangedLogoSuccess = url => ({
+  type: PREVIEW_CHANGED_LOGO_SUCCESS,
+  payload: url,
+});
+
+export const previewChangedLogoFailure = err => ({
+  type: PREVIEW_CHANGED_LOGO_FAILURE,
+  payload: err,
+});
+
+export function previewChangedLogo(file) {
+  return dispatch => {
+    dispatch(previewChangedLogoBegin());
+    const formData = new FormData();
+    formData.append('file', file);
+    return fetch(`${API_ENDPOINT}/upload/logo`, {
+      method: 'POST',
+      body: formData,
+    })
+      .then(res => res.json())
+      .then(data => dispatch(previewChangedLogoSuccess(data.url)))
+      .catch(err => dispatch(previewChangedLogoFailure(err)));
+  };
+}
 
 export const previewChangedPosition = text => ({
   type: PREVIEW_CHANGED_POSITION,
@@ -146,18 +174,18 @@ export function getJobs() {
     return fetch(`${API_ENDPOINT}/jobs`)
       .then(res => res.json())
       .then(res => {
-        let today = new Date().getTime() - (1 * 24 * 60 * 60 * 1000);
-        let weekAgo = new Date().getTime() - (7 * 24 * 60 * 60 * 1000);
-        let monthAgo = new Date().getTime() - (30 * 24 * 60 * 60 * 1000);
-        
-        let todayJobs = [];
-        let pastWeekJobs = [];
-        let pastMonthJobs = [];
-        let olderJobs = [];
-  
+        const today = new Date().getTime() - 1 * 24 * 60 * 60 * 1000;
+        const weekAgo = new Date().getTime() - 7 * 24 * 60 * 60 * 1000;
+        const monthAgo = new Date().getTime() - 30 * 24 * 60 * 60 * 1000;
+
+        const todayJobs = [];
+        const pastWeekJobs = [];
+        const pastMonthJobs = [];
+        const olderJobs = [];
+
         res.forEach(job => {
-          let createdAt = new Date(job.createdAt).getTime();
-          if(createdAt > today) {
+          const createdAt = new Date(job.createdAt).getTime();
+          if (createdAt > today) {
             todayJobs.push(job);
           } else if (createdAt > weekAgo) {
             pastWeekJobs.push(job);
@@ -167,12 +195,14 @@ export function getJobs() {
             olderJobs.push(job);
           }
         });
-        dispatch(getJobsSuccess({
-          today: todayJobs,
-          pastWeek: pastWeekJobs,
-          pastMonth: pastMonthJobs,
-          older: olderJobs,
-        }));
+        dispatch(
+          getJobsSuccess({
+            today: todayJobs,
+            pastWeek: pastWeekJobs,
+            pastMonth: pastMonthJobs,
+            older: olderJobs,
+          }),
+        );
       })
       .catch(err => {
         dispatch(getJobsFailure(err));

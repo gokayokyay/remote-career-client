@@ -5,10 +5,14 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
+import { useDispatch, useSelector } from 'react-redux';
+
 import Link from '../src/Link';
 import NavBar from '../src/components/NavBar';
 import CreateJobSection from '../src/components/CreateJobSection';
 import JobPreviewSection from '../src/components/JobPreviewSection';
+
+import { postJob } from '../src/redux/actions';
 
 const useStyles = makeStyles(theme => ({
   confirmContainer: {
@@ -32,6 +36,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function Index() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const state = useSelector(state => state.previewJob);
   return (
     <Grid container>
       <NavBar position="fixed" />
@@ -45,10 +51,28 @@ export default function Index() {
         <Typography className={classes.priceText} color="primary">
           Price: FREE!
         </Typography>
-        <Button variant="contained" color="secondary" className={classes.confirmButton}>
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.confirmButton}
+          onClick={e => {
+            dispatch(postJob(state));
+            console.log(state);
+          }}
+        >
           Confirm
         </Button>
-        <a style={{float: 'right', color: 'white', fontSize: 12, textDecoration: 'none'}} href="https://www.freepik.com/free-photos-vectors/background">Background vector created by freepik - www.freepik.com</a>
+        <a
+          style={{
+            float: 'right',
+            color: 'white',
+            fontSize: 12,
+            textDecoration: 'none',
+          }}
+          href="https://www.freepik.com/free-photos-vectors/background"
+        >
+          Background vector created by freepik - www.freepik.com
+        </a>
       </Box>
     </Grid>
   );

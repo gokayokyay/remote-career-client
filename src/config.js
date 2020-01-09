@@ -1,1 +1,2 @@
-export const API_ENDPOINT = 'https://pacific-dawn-86567.herokuapp.com';
+/* eslint-disable import/prefer-default-export */
+export const API_ENDPOINT = 'http://localhost:8000';
