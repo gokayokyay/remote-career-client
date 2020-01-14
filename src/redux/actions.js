@@ -18,13 +18,13 @@ export const PREVIEW_CHANGED_RESPONSIBILITIES =
   'PREVIEW_CHANGED_RESPONSIBILITIES';
 export const PREVIEW_CHANGED_REQUIREMENTS = 'PREVIEW_CHANGED_REQUIREMENTS';
 export const PREVIEW_CHANGED_NICE_TO_HAVE = 'PREVIEW_CHANGED_NICE_TO_HAVE';
-export const PREVIEW_CHANGED_APPLY_EMAIL = 'PREVIEW_CHANGED_APPLY_EMAIL';
-export const PREVIEW_CHANGED_APPLY_URL = 'PREVIEW_CHANGED_APPLY_URL';
+export const PREVIEW_CHANGED_APPLY_LINK = 'PREVIEW_CHANGED_APPLY_LINK';
 export const PREVIEW_APPLY_ERROR = 'PREVIEW_APPLY_ERROR';
 
 export const POST_JOB_BEGIN = 'POST_JOB_BEGIN';
 export const POST_JOB_SUCCESS = 'POST_JOB_SUCCESS';
 export const POST_JOB_FAILURE = 'POST_JOB_FAILURE';
+export const POST_JOB_ERROR_ACKED = 'POST_JOB_ERROR_ACKED';
 
 export const GET_JOBS_BEGIN = 'GET_JOBS_BEGIN';
 export const GET_JOBS_SUCCESS = 'GET_JOBS_SUCCESS';
@@ -104,13 +104,8 @@ export const previewChangedNiceToHave = text => ({
   payload: text,
 });
 
-export const previewChangedApplyEmail = text => ({
-  type: PREVIEW_CHANGED_APPLY_EMAIL,
-  payload: text,
-});
-
-export const previewChangedApplyURL = text => ({
-  type: PREVIEW_CHANGED_APPLY_URL,
+export const previewChangedApplyLink = text => ({
+  type: PREVIEW_CHANGED_APPLY_LINK,
   payload: text,
 });
 
@@ -131,7 +126,25 @@ export const postJobFailure = error => ({
   payload: error,
 });
 
+export const postJobErrorAcked = () => ({
+  type: POST_JOB_ERROR_ACKED,
+});
+
 export function postJob(job) {
+  const body = {
+    position: job.position,
+    companyName: job.companyName,
+    companyHeadquarters: job.companyHQ,
+    locationRestriction: job.locationRestriction
+      ? job.locationRestriction
+      : 'Worldwide',
+    companyLogo: job.logoURL,
+    tags: job.tags,
+    requirements: job.requirements,
+    description: job.jobDescription,
+    niceToHave: job.niceToHave,
+    applyLink: job.applyLink,
+  };
   return dispatch => {
     dispatch(postJobBegin());
     return fetch(`${API_ENDPOINT}/jobs`, {
@@ -140,15 +153,37 @@ export function postJob(job) {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(job),
+      body: JSON.stringify(body),
     })
       .then(res => res.json())
       .then(res => {
-        dispatch(postJobSuccess());
+        if (res.code === 500) {
+          let error = '';
+          if (res.message.includes('position')) {
+            error += 'Position is required!\n';
+          }
+          if (res.message.includes('companyName')) {
+            error += 'Company name is required!\n';
+          }
+          if (res.message.includes('companyLogo')) {
+            error += 'Company logo is required!\n';
+          }
+          if (res.message.includes('description')) {
+            error += 'Job description is required!\n';
+          }
+          if (res.message.includes('tags')) {
+            error += 'Minimum one, maximum three tags are allowed.\n';
+          }
+          if (res.message.includes('applyLink')) {
+            error += 'Apply link is required!\n';
+          }
+          dispatch(postJobFailure(error));
+        } else {
+          dispatch(postJobSuccess());
+        }
       })
       .catch(err => {
         dispatch(postJobFailure(err));
-        console.log(err);
       });
   };
 }

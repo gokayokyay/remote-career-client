@@ -1,10 +1,10 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
 import NavBar from '../../src/components/NavBar';
 import JobPost from '../../src/components/JobPost';
-import { makeStyles } from '@material-ui/core/styles'
-
-import { useRouter } from 'next/router';
+import { API_ENDPOINT } from '../../src/config';
 
 const useStyles = makeStyles({
   root: {
@@ -25,14 +25,24 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Index() {
-  const router = useRouter();
+export default function Index(props) {
   const classes = useStyles();
+  const { job } = props;
   return (
     <Grid className={classes.root} container>
       <NavBar />
-      <JobPost />
+      <JobPost job={job} />
       <div className={classes.bg} />
     </Grid>
   );
 }
+
+Index.getInitialProps = async context => {
+  const { id } = context.query;
+  const res = await fetch(`${API_ENDPOINT}/jobs/${id}`);
+  const data = await res.json();
+  // console.log(data);
+  return {
+    job: data,
+  };
+};

@@ -10,6 +10,8 @@ import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
 import { useRouter } from 'next/router';
 
+import { timeDifference } from '../utils';
+
 const useStyles = makeStyles(theme => ({
   root: {
     height: '96px',
@@ -130,7 +132,8 @@ const useStyles = makeStyles(theme => ({
   lifetime: {
     marginRight: 12,
     fontWeight: 'bold',
-  }
+    width: 28,
+  },
 }));
 
 export default function JobCard(props) {
@@ -144,8 +147,8 @@ export default function JobCard(props) {
     preview,
     locationRestriction = null,
     _id,
+    createdAt,
   } = props;
-
   // eslint-disable-next-line consistent-return
   const hasLocationRestriction = () => {
     if (locationRestriction) {
@@ -203,7 +206,7 @@ export default function JobCard(props) {
       </Hidden>
       <Box>
         <Typography className={classes.lifetime}>
-          12h
+          {timeDifference(new Date(), new Date(createdAt))}
         </Typography>
       </Box>
       <Divider className={classes.bottomDivider} variant="fullWidth" />

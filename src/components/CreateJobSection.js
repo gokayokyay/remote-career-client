@@ -7,7 +7,7 @@ import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { useDispatch, useStore, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   previewChangedPosition,
@@ -19,9 +19,7 @@ import {
   previewChangedResponsibilities,
   previewChangedRequirements,
   previewChangedNiceToHave,
-  previewChangedApplyEmail,
-  previewChangedApplyURL,
-  previewApplyError,
+  previewChangedApplyLink,
   previewChangedCompanyHQ,
   postJob,
 } from '../redux/actions';
@@ -76,7 +74,7 @@ const useStyles = makeStyles(theme => ({
 export default function CreateJobSection() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const state = useSelector(state => state.previewJob);
+  const state = useSelector(st => st.previewJob);
   // console.log(state);
   return (
     <Container className={classes.root}>
@@ -171,7 +169,7 @@ export default function CreateJobSection() {
       />
       <Typography className={classes.inputCaptions} variant="caption">
         Comma seperated tags. Please keep in mind that these tags are very
-        important for applicants.
+        important for applicants. Minimum one, maximum three tags are allowed.
       </Typography>
       <Typography className={classes.inputTitles} variant="body1">
         Job Description*
@@ -219,13 +217,7 @@ export default function CreateJobSection() {
       </Typography>
       <InputBase
         onChange={e => {
-          if (e.target.value.includes('@')) {
-            dispatch(previewChangedApplyEmail(e.target.value));
-          } else if (e.target.value.includes('http')) {
-            dispatch(previewChangedApplyURL(e.target.value));
-          } else {
-            dispatch(previewApplyError());
-          }
+          dispatch(previewChangedApplyLink(e.target.value));
         }}
         required
         className={classes.inputs}

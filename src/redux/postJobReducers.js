@@ -1,7 +1,12 @@
 /* eslint-disable import/prefer-default-export */
-import { POST_JOB_BEGIN, POST_JOB_SUCCESS, POST_JOB_FAILURE } from './actions';
+import {
+  POST_JOB_BEGIN,
+  POST_JOB_SUCCESS,
+  POST_JOB_FAILURE,
+  POST_JOB_ERROR_ACKED,
+} from './actions';
 
-export function postJob(state = {}, action) {
+export function postJob(state = { loading: false, error: false }, action) {
   switch (action.type) {
     case POST_JOB_BEGIN:
       return { ...state, loading: true };
@@ -13,6 +18,11 @@ export function postJob(state = {}, action) {
         loading: false,
         success: false,
         error: action.payload,
+      };
+    case POST_JOB_ERROR_ACKED:
+      return {
+        ...state,
+        error: false,
       };
     default:
       return state;

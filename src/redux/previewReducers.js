@@ -12,8 +12,7 @@ import {
   PREVIEW_CHANGED_RESPONSIBILITIES,
   PREVIEW_CHANGED_REQUIREMENTS,
   PREVIEW_CHANGED_NICE_TO_HAVE,
-  PREVIEW_CHANGED_APPLY_URL,
-  PREVIEW_CHANGED_APPLY_EMAIL,
+  PREVIEW_CHANGED_APPLY_LINK,
   PREVIEW_APPLY_ERROR,
 } from './actions';
 
@@ -43,17 +42,10 @@ export const previewJob = (state = {}, action) => {
       return { ...state, requirements: action.payload };
     case PREVIEW_CHANGED_NICE_TO_HAVE:
       return { ...state, niceToHave: action.payload };
-    case PREVIEW_CHANGED_APPLY_URL:
+    case PREVIEW_CHANGED_APPLY_LINK:
       return {
         ...state,
-        applyURL: action.payload,
-        applyMethod: 'URL',
-      };
-    case PREVIEW_CHANGED_APPLY_EMAIL:
-      return {
-        ...state,
-        applyEmail: action.payload,
-        applyMethod: 'EMAIL',
+        applyLink: action.payload,
       };
     case PREVIEW_APPLY_ERROR:
       return { ...state, applyError: true };

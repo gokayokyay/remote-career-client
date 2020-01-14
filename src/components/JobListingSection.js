@@ -34,20 +34,12 @@ const useStyles = makeStyles(theme => ({
 export default function JobListingSection(props) {
   const classes = useStyles();
   const { date, jobs } = props;
-  console.log(jobs);
   return (
     <Grid container className={classes.root}>
       <Typography variant="h5" className={classes.dateText}>
         {date}
       </Typography>
       <Grid container className={classes.listSection}>
-        {/* <JobCard
-          tags={['EU Only', 'Node.js']}
-          jobName="Software Architect"
-          logoURI="./awf.png"
-          companyName="IFAW"
-          jobDescription="Aasbsabasb asdashd aslkdjlaksjd alksjdlaskdjls lahdjasnkmvlkamfkam jafdjasıj ıajdı ıajsdıaskldngvlks"
-        /> */}
         {jobs.map(job => (
           <JobCard
             tags={job.tags}
@@ -56,6 +48,8 @@ export default function JobListingSection(props) {
             locationRestriction={job.locationRestriction}
             _id={job._id}
             key={job._id}
+            logoURI={job.companyLogo}
+            createdAt={job.createdAt}
           />
         ))}
       </Grid>

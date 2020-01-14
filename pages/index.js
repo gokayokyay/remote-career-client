@@ -40,7 +40,6 @@ function Index() {
       return <JobListingSection date="Older than one month" jobs={olderJobs} />;
     }
   };
-  console.log(state);
   return (
     <div>
       <NavBar />
