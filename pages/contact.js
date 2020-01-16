@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -10,9 +10,15 @@ import Button from '@material-ui/core/Button';
 
 import NavBar from '../src/components/NavBar';
 
-import { getJobs } from '../src/redux/actions';
+import {
+  postMail,
+  postMailChangedName,
+  postMailChangedMail,
+  postMailChangedSubject,
+  postMailChangedMessage,
+} from '../src/redux/actions';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   root: {
     flex: 1,
     justifyContent: 'center',
@@ -68,28 +74,48 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
-}));
+  error: {
+    color: 'red',
+  },
+});
 
 function Index() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const state = useSelector(st => st.getJobs);
+  const state = useSelector(st => st.postMail);
   return (
     <Grid container className={classes.root}>
       <NavBar />
-      <form className={classes.contactSection}>
+      <div className={classes.contactSection}>
         <Typography className={classes.inputTitles} variant="body1">
           Name*
         </Typography>
-        <InputBase required className={classes.inputs} fullWidth />
+        <InputBase
+          onChange={e => dispatch(postMailChangedName(e.target.value))}
+          name="name"
+          required
+          className={classes.inputs}
+          fullWidth
+        />
         <Typography className={classes.inputTitles} variant="body1">
           Email Address*
         </Typography>
-        <InputBase required className={classes.inputs} fullWidth />
+        <InputBase
+          onChange={e => dispatch(postMailChangedMail(e.target.value))}
+          name="mail"
+          required
+          className={classes.inputs}
+          fullWidth
+        />
         <Typography className={classes.inputTitles} variant="body1">
           Subject
         </Typography>
-        <InputBase className={classes.inputs} fullWidth />
+        <InputBase
+          onChange={e => dispatch(postMailChangedSubject(e.target.value))}
+          name="subject"
+          className={classes.inputs}
+          fullWidth
+        />
         <Typography className={classes.inputTitles} variant="body1">
           Message*
         </Typography>
@@ -99,24 +125,32 @@ function Index() {
           required
           className={classes.inputs}
           fullWidth
+          name="message"
+          onChange={e => dispatch(postMailChangedMessage(e.target.value))}
         />
         <div className={classes.buttonContainer}>
-          <InputBase
+          <Button
             color="secondary"
-            // variant="contained"
-            inputComponent={Button}
-            inputProps={{
-              className: classes.sendButton,
-              color: 'secondary',
-              variant: 'contained',
-              children: 'Send',
+            variant="contained"
+            className={classes.sendButton}
+            onClick={() => {
+              dispatch(
+                postMail({
+                  name: state.name,
+                  email: state.email,
+                  subject: state.subject,
+                  message: state.message,
+                }),
+              );
             }}
-            type="submit"
           >
             Send
-          </InputBase>
+          </Button>
         </div>
-      </form>
+        <Typography className={classes.error} variant="body1">
+          {state.error}
+        </Typography>
+      </div>
       <div className={classes.bg} />
     </Grid>
   );

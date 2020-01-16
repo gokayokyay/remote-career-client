@@ -6,6 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { useRouter } from 'next/router';
 
 import Link from '../Link';
 
@@ -43,6 +44,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function NavBar(props) {
   const classes = useStyles();
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const { position, className, rootStyle } = props;
@@ -51,8 +53,9 @@ export default function NavBar(props) {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = route => {
     setAnchorEl(null);
+    router.push(`/${route}`);
   };
 
   return (
@@ -75,9 +78,9 @@ export default function NavBar(props) {
               Contact
             </Button>
           </Link>
-          <Button color="secondary" className={classes.buttons}>
+          {/* <Button color="secondary" className={classes.buttons}>
             Proofs
-          </Button>
+          </Button> */}
           <Link href="/postjob">
             <Button
               color="secondary"
@@ -97,9 +100,11 @@ export default function NavBar(props) {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>Post A Job</MenuItem>
-            <MenuItem onClick={handleClose}>Proof</MenuItem>
-            <MenuItem onClick={handleClose}>Contact</MenuItem>
+            <MenuItem onClick={() => handleClose('postjob')}>
+              Post A Job
+            </MenuItem>
+            {/* <MenuItem onClick={handleClose}>Proof</MenuItem> */}
+            <MenuItem onClick={() => handleClose('contact')}>Contact</MenuItem>
           </Menu>
         </div>
       </Toolbar>
