@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
@@ -27,6 +27,7 @@ const useStyles = makeStyles(theme => ({
   },
   buttons: {
     marginLeft: 8,
+    fontWeight: 'bold',
   },
   logoContainer: {
     display: 'flex',
@@ -69,9 +70,11 @@ export default function NavBar(props) {
         </Link>
         <div className={classes.grow} />
         <div className={classes.sectionDesktop}>
-          <Button color="secondary" className={classes.buttons}>
-            Contact
-          </Button>
+          <Link href="/contact">
+            <Button color="secondary" className={classes.buttons}>
+              Contact
+            </Button>
+          </Link>
           <Button color="secondary" className={classes.buttons}>
             Proofs
           </Button>

@@ -34,6 +34,7 @@ const useStyles = makeStyles(theme => ({
 export default function JobListingSection(props) {
   const classes = useStyles();
   const { date, jobs } = props;
+  jobs.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   return (
     <Grid container className={classes.root}>
       <Typography variant="h5" className={classes.dateText}>

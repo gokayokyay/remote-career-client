@@ -151,7 +151,7 @@ export default function JobCard(props) {
   } = props;
   // eslint-disable-next-line consistent-return
   const hasLocationRestriction = () => {
-    if (locationRestriction) {
+    if (locationRestriction && locationRestriction !== 'Worldwide') {
       return (
         <Box className={classes.restrictionContainer}>
           <Typography className={classes.tagName} variant="caption">

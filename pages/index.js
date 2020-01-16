@@ -1,16 +1,15 @@
+/* eslint-disable consistent-return */
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import fetch from 'isomorphic-unfetch';
 
-import Link from '../src/Link';
 import NavBar from '../src/components/NavBar';
 import Hero from '../src/components/Hero';
 import Showcase from '../src/components/ClientShowcase';
 import FilterSection from '../src/components/FilterSection';
 import JobListingSection from '../src/components/JobListingSection';
+import Footer from '../src/components/Footer';
 
-import { API_ENDPOINT } from '../src/config';
 import { getJobs } from '../src/redux/actions';
 
 function Index() {
@@ -18,7 +17,7 @@ function Index() {
   useEffect(() => {
     dispatch(getJobs());
   }, []);
-  const state = useSelector(state => state.getJobs);
+  const state = useSelector(st => st.getJobs);
   const { olderJobs, pastMonthJobs, pastWeekJobs, todayJobs } = state;
   const returnToday = () => {
     if (todayJobs && todayJobs.length) {
@@ -51,6 +50,7 @@ function Index() {
       {returnPastMonth()}
       {returnOlder()}
       {/* <JobListingSection date="Today" jobs={[]} /> */}
+      <Footer />
     </div>
   );
 }

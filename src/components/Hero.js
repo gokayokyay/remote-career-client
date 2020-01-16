@@ -1,8 +1,10 @@
+/* eslint-disable no-prototype-builtins */
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { useSelector } from 'react-redux';
 
 import Link from '../Link';
 
@@ -59,6 +61,13 @@ const useStyles = makeStyles({
 
 export default function Hero() {
   const classes = useStyles();
+  const state = useSelector(st => st.getJobs);
+  const jobCount = state.hasOwnProperty('todayJobs')
+    ? state.todayJobs.length +
+      state.pastWeekJobs.length +
+      state.pastMonthJobs.length +
+      state.olderJobs.length
+    : 0;
   return (
     <Grid container className={classes.root}>
       <Grid xs={12} item className={classes.image}>
@@ -79,11 +88,11 @@ export default function Hero() {
                 variant="contained"
                 className={classes.postJobButton}
               >
-                Post a Job - 50$
+                POST A JOB
               </Button>
             </Link>
             <Typography variant="caption" className={classes.jobCount}>
-              <b>22</b> jobs and still counting!
+              <b>{jobCount}</b> jobs and still counting!
             </Typography>
           </div>
         </div>

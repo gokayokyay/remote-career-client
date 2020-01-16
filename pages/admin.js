@@ -38,24 +38,23 @@ const useStyles = makeStyles({
 });
 
 function Admin(props) {
-  const dispatch = useDispatch();
   const classes = useStyles();
 
   const { reviewjobs } = props;
 
-  useEffect(() => {
-    dispatch(
-      postJob({
-        // applyLink: 'http',
-        companyLogo: '12334',
-        companyName: 'test',
-        description: 'A jobbbb',
-        locationRestriction: 'EU Only',
-        position: 'Software Engineer',
-        tags: ['Hey', 'you'],
-      }),
-    );
-  }, []);
+  // useEffect(() => {
+  //   dispatch(
+  //     postJob({
+  //       // applyLink: 'http',
+  //       companyLogo: '12334',
+  //       companyName: 'test',
+  //       description: 'A jobbbb',
+  //       locationRestriction: 'EU Only',
+  //       position: 'Software Engineer',
+  //       tags: ['Hey', 'you'],
+  //     }),
+  //   );
+  // }, []);
   return (
     <div className={classes.root}>
       <Drawer
@@ -80,7 +79,7 @@ function Admin(props) {
         </List>
       </Drawer>
       <div className={classes.jobSection}>
-        <JobPost />
+        <JobPost job={reviewjobs[0]}/>
       </div>
     </div>
   );
@@ -88,7 +87,7 @@ function Admin(props) {
 
 Admin.getInitialProps = async () => {
   const res = await fetch(
-    'https://pacific-dawn-86567.herokuapp.com/reviewjobs',
+    'http://localhost:8000/reviewjobs',
   );
   const data = await res.json();
   console.log(data);
