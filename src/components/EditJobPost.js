@@ -5,6 +5,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -65,12 +66,18 @@ const useStyles = makeStyles({
   confirmButton: {
     fontWeight: 'bold',
     marginTop: 32,
-    '@media (max-width:948px)': {
-      display: 'none',
-    },
   },
   uploadButton: {
     fontWeight: 'bold',
+  },
+  logo: {
+    height: 'auto',
+    maxHeight: '200px',
+
+    width: 'auto',
+    maxWidth: '200px',
+    display: 'block',
+    margin: '12px 0 12px 0',
   },
 });
 
@@ -80,7 +87,7 @@ function EditJobPost(props) {
   const state = useSelector(st => st.editJob);
   const errorState = useSelector(st => st.postJob);
   const keyState = useSelector(st => st.editJobCheckKey);
-  console.log(keyState);
+  // console.log(keyState);
   // console.log(errorState);
   const { job } = props;
 
@@ -139,6 +146,11 @@ function EditJobPost(props) {
       <Typography className={classes.inputTitles} variant="body1">
         Company Logo*
       </Typography>
+      <img
+        className={classes.logo}
+        src={state.logoURL}
+        alt={`${job.companyName} Logo`}
+      />
       <input
         accept="image/*"
         className={classes.input}
@@ -148,7 +160,7 @@ function EditJobPost(props) {
         onChange={async e => {
           dispatch(editJobChangedLogo(e.target.files[0]));
         }}
-        defaultValue={job.companyLogo || ''}
+        // defaultValue={job.companyLogo}
       />
       <label htmlFor="button-file">
         <Button
