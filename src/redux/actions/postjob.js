@@ -82,7 +82,7 @@ export function postJob(job) {
   };
 }
 
-export function postEditedJob(job) {
+export function postEditedJob(job, id, key) {
   const body = {
     position: job.position,
     companyName: job.companyName,
@@ -97,6 +97,8 @@ export function postEditedJob(job) {
     niceToHave: job.niceToHave,
     applyLink: job.applyLink,
     responsibilities: job.responsibilities,
+    id,
+    key,
   };
   return dispatch => {
     dispatch(postJobBegin());

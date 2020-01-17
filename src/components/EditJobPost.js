@@ -112,6 +112,8 @@ function EditJobPost(props) {
     }
     dispatch(editJobChangedApplyLink(job.applyLink));
   }, []);
+  console.log(state);
+  console.log(keyState);
   return (
     <div className={classes.root}>
       <Typography className={classes.inputTitles} variant="body1">
@@ -283,7 +285,7 @@ function EditJobPost(props) {
           variant="contained"
           className={classes.confirmButton}
           onClick={() => {
-            dispatch(postEditedJob(state));
+            dispatch(postEditedJob(state, keyState.jobId, keyState.key));
           }}
         >
           Confirm

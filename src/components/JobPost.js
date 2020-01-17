@@ -116,6 +116,9 @@ export default function JobPost(props) {
     niceToHave: 'Nice To Have',
   };
   function returnTitleAndCaption(property) {
+    if (job[property] === null || job[property] === '') {
+      return;
+    }
     if (job.hasOwnProperty(property)) {
       return (
         <React.Fragment key={property}>
