@@ -8,9 +8,9 @@ export function getJobs(state = {}, action) {
     case GET_JOBS_FAILURE:
       return { ...state, loading: false, error: action.payload };
     case GET_JOBS_SUCCESS:
-      return { 
-        ...state, 
-        loading: false, 
+      return {
+        ...state,
+        loading: false,
         todayJobs: action.payload.today,
         pastWeekJobs: action.payload.pastWeek,
         pastMonthJobs: action.payload.pastMonth,

@@ -39,6 +39,10 @@ export const POST_MAIL_CHANGED_MAIL = 'POST_MAIL_CHANGED_MAIL';
 export const POST_MAIL_CHANGED_SUBJECT = 'POST_MAIL_CHANGED_SUBJECT';
 export const POST_MAIL_CHANGED_MESSAGE = 'POST_MAIL_CHANGED_MESSAGE';
 
+export const EDIT_JOB_CHECK_KEY_BEGIN = 'EDIT_JOB_CHECK_KEY_BEGIN';
+export const EDIT_JOB_CHECK_KEY_SUCCESS = 'EDIT_JOB_CHECK_KEY_SUCCESS';
+export const EDIT_JOB_CHECK_KEY_FAILURE = 'EDIT_JOB_CHECK_KEY_FAILURE';
+
 export const previewChangedLogoBegin = () => ({
   type: PREVIEW_CHANGED_LOGO_BEGIN,
 });
@@ -280,7 +284,7 @@ export function postMail(mail) {
     })
       .then(res => res.json())
       .then(res => {
-        if (!Number.toString(res.code).startsWith('2')) {
+        if (!String(res.code).startsWith('2')) {
           dispatch(postMailFailure(res.message));
         } else {
           dispatch(postMailSuccess());
@@ -311,3 +315,44 @@ export const postMailChangedMessage = message => ({
   type: POST_MAIL_CHANGED_MESSAGE,
   payload: message,
 });
+
+export const editJobCheckKeyBegin = () => ({
+  type: EDIT_JOB_CHECK_KEY_BEGIN,
+});
+
+export const editJobCheckKeySuccess = (jobId, key) => ({
+  type: EDIT_JOB_CHECK_KEY_SUCCESS,
+  payload: { jobId, key },
+});
+
+export const editJobCheckKeyFailure = () => ({
+  type: EDIT_JOB_CHECK_KEY_FAILURE,
+});
+
+export function editJobCheckKey(jobId, key) {
+  return dispatch => {
+    dispatch(editJobCheckKeyBegin());
+    return fetch(`${API_ENDPOINT}/jobs/checkkey`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        jobId,
+        key,
+      }),
+    })
+      .then(res => res.json())
+      .then(res => {
+        if (!String(res.code).startsWith('2')) {
+          dispatch(editJobCheckKeyFailure());
+        } else {
+          dispatch(editJobCheckKeySuccess(key));
+        }
+      })
+      .catch(() => {
+        dispatch(editJobCheckKeyFailure());
+      });
+  };
+}

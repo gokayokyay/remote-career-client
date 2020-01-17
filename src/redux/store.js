@@ -5,6 +5,7 @@ import { previewJob } from './previewReducers';
 import { postJob } from './postJobReducers';
 import { getJobs } from './getJobsReducers';
 import { postMail } from './postMailReducers';
+import { editJobCheckKey, editJob } from './editJobReducers';
 
 export default createStore(
   combineReducers({
@@ -12,6 +13,8 @@ export default createStore(
     postJob,
     getJobs,
     postMail,
+    editJobCheckKey,
+    editJob,
   }),
   applyMiddleware(thunk),
 );
