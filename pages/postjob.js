@@ -9,6 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
 import NavBar from '../src/components/NavBar';
 import CreateJobSection from '../src/components/CreateJobSection';
@@ -41,8 +42,12 @@ export default function Index() {
   const dispatch = useDispatch();
   const state = useSelector(st => st.previewJob);
   const errorState = useSelector(st => st.postJob);
+  const router = useRouter();
   const handleClose = () => {
     dispatch(postJobErrorAcked());
+  };
+  const handleSuccessClose = () => {
+    router.push('/');
   };
   return (
     <Grid container>
@@ -88,10 +93,32 @@ export default function Index() {
           Apply Error
         </DialogTitle>
         <DialogContent dividers>
-          <Typography style={{ whiteSpace: 'pre-line' }} gutterBottom>{errorState.error}</Typography>
+          <Typography style={{ whiteSpace: 'pre-line' }} gutterBottom>
+            {errorState.error}
+          </Typography>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="error">
+            OKAY
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={errorState.success === true}
+      >
+        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+          Success!
+        </DialogTitle>
+        <DialogContent dividers>
+          <Typography style={{ whiteSpace: 'pre-line' }} gutterBottom>
+            Your job will be reviewed before going live. You will be informed
+            when it is ready.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleSuccessClose} color="success">
             OKAY
           </Button>
         </DialogActions>

@@ -16,6 +16,9 @@ const useStyles = makeStyles({
     borderTopRightRadius: 10,
     boxShadow: '0px 0px 12px rgba(0, 0, 0, 0.75)',
     margin: 'auto',
+    position: 'fixed',
+    bottom: 0,
+    left: 'calc(50% - 100px)',
   },
   text: {
     color: 'white',
