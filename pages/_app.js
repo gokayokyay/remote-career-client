@@ -23,7 +23,7 @@ export default class MyApp extends App {
     return (
       <Provider store={store}>
         <Head>
-          <title>My page</title>
+          <title>Remote Career</title>
           <link
             href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap"
             rel="stylesheet"
