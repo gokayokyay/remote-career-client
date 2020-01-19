@@ -1,2 +1,2 @@
-export const API_ENDPOINT = 'http://localhost:8000';
-export const DOMAIN = `.localhost.org`;
+export const API_ENDPOINT = 'https://api.remotecareer.org';
+export const DOMAIN = `.remotecareer.org`;
