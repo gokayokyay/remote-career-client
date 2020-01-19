@@ -10,7 +10,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 
 import NavBar from '../../src/components/NavBar';
 import EditJobPost from '../../src/components/EditJobPost';
-import AuthScreen from '../../src/components/AuthScreen';
+import AuthScreen from '../../src/components/JobAuthScreen';
 import { API_ENDPOINT } from '../../src/config';
 
 const useStyles = makeStyles({

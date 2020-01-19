@@ -19,6 +19,7 @@ export const PREVIEW_CHANGED_REQUIREMENTS = 'PREVIEW_CHANGED_REQUIREMENTS';
 export const PREVIEW_CHANGED_NICE_TO_HAVE = 'PREVIEW_CHANGED_NICE_TO_HAVE';
 export const PREVIEW_CHANGED_APPLY_LINK = 'PREVIEW_CHANGED_APPLY_LINK';
 export const PREVIEW_APPLY_ERROR = 'PREVIEW_APPLY_ERROR';
+export const PREVIEW_CHANGED_CONTACT_EMAIL = 'PREVIEW_CHANGED_CONTACT_EMAIL';
 
 export const previewChangedLogoBegin = () => ({
   type: PREVIEW_CHANGED_LOGO_BEGIN,
@@ -101,4 +102,9 @@ export const previewChangedApplyLink = text => ({
 
 export const previewApplyError = () => ({
   type: PREVIEW_APPLY_ERROR,
+});
+
+export const previewChangedContactEmail = email => ({
+  type: PREVIEW_CHANGED_CONTACT_EMAIL,
+  payload: email,
 });

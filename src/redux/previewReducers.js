@@ -14,6 +14,7 @@ import {
   PREVIEW_CHANGED_NICE_TO_HAVE,
   PREVIEW_CHANGED_APPLY_LINK,
   PREVIEW_APPLY_ERROR,
+  PREVIEW_CHANGED_CONTACT_EMAIL,
 } from './actions';
 
 export const previewJob = (state = {}, action) => {
@@ -46,6 +47,11 @@ export const previewJob = (state = {}, action) => {
       return {
         ...state,
         applyLink: action.payload,
+      };
+    case PREVIEW_CHANGED_CONTACT_EMAIL:
+      return {
+        ...state,
+        contactEmail: action.payload,
       };
     case PREVIEW_APPLY_ERROR:
       return { ...state, applyError: true };

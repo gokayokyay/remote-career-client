@@ -1,4 +1,5 @@
-/* eslint-disable import/prefer-default-export */
+import { DOMAIN } from './config';
+
 export const toBase64 = file =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -41,4 +42,10 @@ export function timeDifference(current, previous) {
   }
 
   return '';
+}
+
+export function setSessionCookie(name, value) {
+  const expires = `; expires=0`;
+  document.cookie = `${name}=${value ||
+    ''}${expires}; path=/; domain=.${DOMAIN};`;
 }

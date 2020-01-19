@@ -1,7 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
-import fetch from 'isomorphic-unfetch';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
@@ -9,10 +8,15 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import { useRouter } from 'next/router';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { postJob } from '../src/redux/actions';
+import {
+  getReviewJobs,
+  selectedReviewJob,
+  confirmReviewJob,
+} from '../src/redux/actions';
 import JobPost from '../src/components/JobPost';
 
 const drawerWidth = 240;
@@ -37,24 +41,21 @@ const useStyles = makeStyles({
   },
 });
 
-function Admin(props) {
+function Admin() {
   const classes = useStyles();
+  const keyState = useSelector(st => st.admin);
+  const reviewJobsState = useSelector(st => st.reviewJobs);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
-  const { reviewjobs } = props;
+  useEffect(() => {
+    if (!keyState.key || !keyState.success) {
+      router.replace('/auth');
+    } else {
+      dispatch(getReviewJobs(keyState.key));
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   dispatch(
-  //     postJob({
-  //       // applyLink: 'http',
-  //       companyLogo: '12334',
-  //       companyName: 'test',
-  //       description: 'A jobbbb',
-  //       locationRestriction: 'EU Only',
-  //       position: 'Software Engineer',
-  //       tags: ['Hey', 'you'],
-  //     }),
-  //   );
-  // }, []);
   return (
     <div className={classes.root}>
       <Drawer
@@ -65,35 +66,48 @@ function Admin(props) {
         }}
         anchor="left"
       >
-        <Button color="secondary" variant="contained">
+        <Button color="default" variant="contained">
+          DECLINE
+        </Button>
+        <Button
+          onClick={() => {
+            dispatch(
+              confirmReviewJob(
+                reviewJobsState.reviewJobs[reviewJobsState.selected]._id,
+                keyState.key,
+              ),
+            );
+          }}
+          color="secondary"
+          variant="contained"
+        >
           CONFIRM
         </Button>
         <List>
-          {reviewjobs.map(obj => {
-            return (
-              <ListItem button key={obj._id}>
-                <ListItemText primary={obj.position} />
-              </ListItem>
-            );
-          })}
+          {reviewJobsState.reviewJobs
+            ? reviewJobsState.reviewJobs.map((obj, index) => {
+                return (
+                  <ListItem
+                    onClick={() => {
+                      dispatch(selectedReviewJob(index));
+                    }}
+                    button
+                    key={obj._id}
+                  >
+                    <ListItemText primary={obj.position} />
+                  </ListItem>
+                );
+              })
+            : null}
         </List>
       </Drawer>
       <div className={classes.jobSection}>
-        <JobPost job={reviewjobs[0]}/>
+        {reviewJobsState.reviewJobs ? (
+          <JobPost job={reviewJobsState.reviewJobs[reviewJobsState.selected]} />
+        ) : null}
       </div>
     </div>
   );
 }
-
-Admin.getInitialProps = async () => {
-  const res = await fetch(
-    'http://localhost:8000/reviewjobs',
-  );
-  const data = await res.json();
-  console.log(data);
-  return {
-    reviewjobs: data,
-  };
-};
 
 export default Admin;

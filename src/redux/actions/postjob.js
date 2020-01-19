@@ -38,6 +38,7 @@ export function postJob(job) {
     niceToHave: job.niceToHave,
     applyLink: job.applyLink,
     responsibilities: job.responsibilities,
+    contactEmail: job.contactEmail,
   };
   return dispatch => {
     dispatch(postJobBegin());
@@ -70,6 +71,9 @@ export function postJob(job) {
           }
           if (res.message.includes('applyLink')) {
             error += 'Apply link is required!\n';
+          }
+          if (res.message.includes('contactEmail')) {
+            error += 'Contact email is required!\n';
           }
           dispatch(postJobFailure(error));
         } else {

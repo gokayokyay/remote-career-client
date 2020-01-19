@@ -55,7 +55,6 @@ export function editJobCheckKey(jobId, key) {
         if (!String(res.code).startsWith('2')) {
           dispatch(editJobCheckKeyFailure());
         } else {
-          console.log(res);
           dispatch(editJobCheckKeySuccess(jobId, key));
         }
       })

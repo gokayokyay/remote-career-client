@@ -21,6 +21,7 @@ import {
   previewChangedNiceToHave,
   previewChangedApplyLink,
   previewChangedCompanyHQ,
+  previewChangedContactEmail,
   postJob,
 } from '../redux/actions';
 
@@ -234,6 +235,17 @@ export default function CreateJobSection() {
       <Typography className={classes.inputCaptions} variant="caption">
         Payments are disabled at the moment.
       </Typography>
+      <Typography className={classes.inputTitles} variant="body1">
+        Contact Email*
+      </Typography>
+      <InputBase
+        onChange={e => {
+          dispatch(previewChangedContactEmail(e.target.value));
+        }}
+        required
+        className={classes.inputs}
+        fullWidth
+      />
       <Container className={classes.buttonContainer}>
         <Button
           color="secondary"
