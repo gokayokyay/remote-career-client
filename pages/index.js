@@ -44,7 +44,7 @@ function Index() {
       <NavBar />
       <Hero />
       <Showcase />
-      <FilterSection />
+      {/* <FilterSection /> */}
       {returnToday()}
       {returnPastWeek()}
       {returnPastMonth()}
