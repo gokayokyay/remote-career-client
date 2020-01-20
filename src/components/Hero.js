@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     height: '40vh',
   },
   image: {
-    backgroundImage: 'url(./lion-overlay.png)',
+    backgroundImage: 'url(./lion-overlay.jpg)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
