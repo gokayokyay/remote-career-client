@@ -107,12 +107,14 @@ export default function JobPost(props) {
     'description',
     'requirements',
     'niceToHave',
+    'responsibilities',
   ];
   const beautifiedTextFields = {
     position: 'Position',
     companyHeadquarters: 'Company Headquarters',
     description: 'Job Description',
     requirements: 'Requirements',
+    responsibilities: 'Responsibilities',
     niceToHave: 'Nice To Have',
   };
   function returnTitleAndCaption(property) {
