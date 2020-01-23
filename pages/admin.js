@@ -102,7 +102,7 @@ function Admin() {
         </List>
       </Drawer>
       <div className={classes.jobSection}>
-        {reviewJobsState.reviewJobs ? (
+        {typeof reviewJobsState.reviewJobs !== 'undefined' && reviewJobsState.reviewJobs.length > 0 ? (
           <JobPost job={reviewJobsState.reviewJobs[reviewJobsState.selected]} />
         ) : null}
       </div>
