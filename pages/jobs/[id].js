@@ -2,6 +2,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import Head from 'next/head';
 import NavBar from '../../src/components/NavBar';
 import JobPost from '../../src/components/JobPost';
 import { API_ENDPOINT } from '../../src/config';
@@ -30,6 +31,9 @@ export default function Index(props) {
   const { job } = props;
   return (
     <Grid className={classes.root} container>
+      <Head>
+        <title>Job - {job.position}</title>
+      </Head>
       <NavBar />
       <JobPost job={job} />
       <div className={classes.bg} />
