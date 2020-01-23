@@ -6,6 +6,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -179,20 +180,22 @@ export default function JobPost(props) {
         })}
       </Box>
       {textFields.map(returnTitleAndCaption)}
-      <Button
-        variant="contained"
-        color="secondary"
-        className={classes.applyButton}
-        onClick={() => {
-          if (job.applyLink.includes('@')) {
-            location.href = `mailto:${job.applyLink}`;
-          } else {
-            location.href = `${job.applyLink}`;
-          }
-        }}
-      >
-        Apply
-      </Button>
+      <Tooltip title={job.applyLink}>
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.applyButton}
+          onClick={() => {
+            if (job.applyLink.includes('@')) {
+              location.href = `mailto:${job.applyLink}`;
+            } else {
+              location.href = `${job.applyLink}`;
+            }
+          }}
+        >
+          Apply
+        </Button>
+      </Tooltip>
     </Box>
   );
 }
