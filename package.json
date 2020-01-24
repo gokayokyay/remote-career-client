@@ -8,6 +8,7 @@
     "clsx": "latest",
     "isomorphic-unfetch": "^3.0.0",
     "next": "latest",
+    "nextjs-sitemap-generator": "^0.5.0",
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
