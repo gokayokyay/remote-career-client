@@ -17,9 +17,10 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "dev": "next",
+    "dev": "node sitemap.js && next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "postinstall": "node sitemap.js"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",

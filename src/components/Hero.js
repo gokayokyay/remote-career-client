@@ -4,6 +4,8 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Slide from '@material-ui/core/Slide';
+import Fade from '@material-ui/core/Fade';
 import { useSelector } from 'react-redux';
 
 import Link from '../Link';
@@ -13,7 +15,7 @@ const useStyles = makeStyles({
     height: '40vh',
   },
   image: {
-    backgroundImage: 'url(./lion-overlay.jpg)',
+    backgroundImage: 'url(./nature-overlay.png)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
@@ -71,31 +73,39 @@ export default function Hero() {
   return (
     <Grid container className={classes.root}>
       <Grid xs={12} item className={classes.image}>
-        <div className={classes.content}>
-          <Typography variant="h5" className={classes.infoText}>
-            The only way to help save the world,
-          </Typography>
-          <Typography variant="h5" className={classes.infoText}>
-            while posting a job
-          </Typography>
-          <Typography variant="caption" className={classes.donationText}>
-            90% of every purchase goes to a charity!
-          </Typography>
-          <div className={classes.buttonArea}>
-            <Link href="/postjob">
-              <Button
-                color="secondary"
-                variant="contained"
-                className={classes.postJobButton}
-              >
-                POST A JOB
-              </Button>
-            </Link>
-            <Typography variant="caption" className={classes.jobCount}>
-              <b>{jobCount}</b> jobs and still counting!
+        <Slide timeout={2000} in direction="down" mountOnEnter unmountOnExit>
+          <div className={classes.content}>
+            <Fade in timeout={2000}>
+              <Typography variant="h5" className={classes.infoText}>
+                The only way to help save the world,
+              </Typography>
+            </Fade>
+            <Fade in timeout={2000}>
+              <Typography variant="h5" className={classes.infoText}>
+                while posting a job
+              </Typography>
+            </Fade>
+            <Typography variant="caption" className={classes.donationText}>
+              90% of every purchase goes to a charity!
             </Typography>
+            <Fade in timeout={2000}>
+              <div className={classes.buttonArea}>
+                <Link href="/postjob">
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    className={classes.postJobButton}
+                  >
+                    POST A JOB
+                  </Button>
+                </Link>
+                <Typography variant="caption" className={classes.jobCount}>
+                  <b>{jobCount}</b> jobs and still counting!
+                </Typography>
+              </div>
+            </Fade>
           </div>
-        </div>
+        </Slide>
       </Grid>
     </Grid>
   );
